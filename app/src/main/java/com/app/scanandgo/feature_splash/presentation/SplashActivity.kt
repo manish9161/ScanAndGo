@@ -46,6 +46,7 @@ class SplashActivity: AppCompatActivity() {
                 val intent = Intent(this@SplashActivity, BarcodeScanActivity::class.java)
                 startActivity(intent)
             }
+            finish()
         }
 
         splashViewModel.getCartTotal()

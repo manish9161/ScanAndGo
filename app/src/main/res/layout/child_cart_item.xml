@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ImageView
+        android:id="@+id/imgCartItem"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:contentDescription="@string/image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/txtName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/imgCartItem"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Item Name" />
+
+    <TextView
+        android:id="@+id/txtPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textColor="@color/purple_700"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@id/imgCartItem"
+        app:layout_constraintStart_toEndOf="@id/imgCartItem"
+        tools:text="$ 15" />
+
+    <TextView
+        android:id="@+id/txtRemove"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/imgCartItem"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/white"
+        android:padding="4dp"
+        android:background="@drawable/bg_rounded_corner"
+        android:text="@string/remove_item" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

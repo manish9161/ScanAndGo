@@ -76,6 +76,7 @@ class BarcodeScanActivity : CameraPermissionActivity(), BarcodeCaptureListener {
         viewModel.productResult.observe(this@BarcodeScanActivity) { networkResult ->
             when(networkResult) {
                 is NetworkResult.Error -> {
+                    dismissScannedCodesDialog()
                     LogUtils.printError(message = networkResult.message ?: getString(R.string.error_str))
                 }
                 is NetworkResult.Loading -> {
@@ -89,6 +90,7 @@ class BarcodeScanActivity : CameraPermissionActivity(), BarcodeCaptureListener {
                             viewModel.addCartItem(cartItem)
                         }
                         job.join()
+                        dismissScannedCodesDialog()
                         val intent = Intent(this@BarcodeScanActivity, CartActivity::class.java)
                         startActivity(intent)
                         finish()

@@ -15,7 +15,7 @@ interface CartItemDao {
     suspend fun getCartItem(id: Int): CartItem?
 
     @Query("select sum(total) from cartitem")
-    suspend fun getCartTotal(): Double
+    suspend fun getCartTotal(): Double?
 
     @Update
     suspend fun updateCartItem(cartItem: CartItem)

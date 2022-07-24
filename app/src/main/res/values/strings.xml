@@ -4,9 +4,12 @@
     <string name="remove_item">Remove Item</string>
     <string name="Rs">\u20B9 %1$s</string>
     <string name="checkout">CHECKOUT</string>
-    <string name="no_items_added">No items added.Scan Item.</string>
+    <string name="no_items_added">Your scan &amp; go cart is empty!</string>
+    <string name="suggestion_text">Tap the scan button to start shopping.</string>
     <string name="make_payment">Make Payment</string>
     <string name="total_price">Total price: %1$s</string>
     <string name="error_str">Sorry!Something went wrong.</string>
     <string name="quantity">X %1$s</string>
+    <string name="add_item_text">Add an item to cart</string>
+    <string name="total">Total: $%1$s</string>
 </resources>

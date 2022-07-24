@@ -11,7 +11,7 @@ import com.bumptech.glide.Glide
 
 class CartAdapter: RecyclerView.Adapter<CartAdapter.ViewHolder>() {
 
-	private var cartItemList: MutableList<CartItem> = mutableListOf()
+	var cartItemList: MutableList<CartItem> = mutableListOf()
 	private var iRecyclerViewItemClick: RecyclerViewItemClick<CartItem>? = null
 
 	fun setIRecyclerviewItemClick(recyclerViewItemClick: RecyclerViewItemClick<CartItem>) {

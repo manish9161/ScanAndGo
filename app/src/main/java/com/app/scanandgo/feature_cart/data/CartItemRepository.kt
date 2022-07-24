@@ -14,9 +14,12 @@ class CartItemRepository @Inject constructor(
 
     suspend fun getCartTotal() : Double {
         val total = cartItemDao.getCartTotal()
-        val df = DecimalFormat("#.##")
-        df.roundingMode = RoundingMode.CEILING
-        return df.format(total).toDouble()
+        return total?.let {
+            val df = DecimalFormat("#.##")
+            df.roundingMode = RoundingMode.CEILING
+            df.format(total).toDouble()
+        } ?: 0.0
+
     }
 
     suspend fun clearCart() {

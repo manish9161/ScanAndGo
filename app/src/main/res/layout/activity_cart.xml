@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvCart"
@@ -20,22 +21,50 @@
         android:text="@string/no_items_added"
         app:drawableTopCompat="@drawable/barcode"
         android:drawablePadding="8dp"
+        android:textSize="18sp"
         android:textColor="@color/grey"
         app:layout_constraintBottom_toTopOf="@id/btnCheckout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/txtSuggestion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/suggestion_text"
+        android:layout_marginTop="8dp"
+        android:textSize="12sp"
+        android:textColor="@color/teal_200"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtEmpty" />
+
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnCheckout"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/checkout"
         android:layout_margin="8dp"
         android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:backgroundTint="@color/teal_200" />
+
+    <TextView
+        android:id="@+id/txtTotal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="@string/total"
+        android:layout_marginTop="8dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_margin="8dp"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/btnCheckout"
+        app:layout_constraintBottom_toBottomOf="@id/btnCheckout" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnAddItem"
@@ -43,7 +72,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:contentDescription="@null"
-        android:src="@drawable/ic_add"
+        app:tooltipText="@string/add_item_text"
+        android:src="@drawable/barcode"
         app:layout_constraintBottom_toTopOf="@id/btnCheckout"
         app:layout_constraintEnd_toEndOf="parent"/>
 

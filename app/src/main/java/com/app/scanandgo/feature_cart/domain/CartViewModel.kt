@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.app.scanandgo.core.LogUtils
 import com.app.scanandgo.feature_cart.data.CartItem
 import com.app.scanandgo.feature_cart.data.CartItemRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,8 +19,12 @@ class CartViewModel @Inject constructor(
     private val _cartItemList: MutableLiveData<List<CartItem>> = MutableLiveData<List<CartItem>>()
     val cartItemList: LiveData<List<CartItem>> = _cartItemList
 
+    private val _total: MutableLiveData<Double> = MutableLiveData<Double>()
+    val total: LiveData<Double> = _total
+
     init {
         getCartItems()
+        getTotal()
     }
 
 
@@ -32,6 +37,14 @@ class CartViewModel @Inject constructor(
     fun removeItem(id: Int) {
         viewModelScope.launch {
             cartItemRepository.removeCartItem(id)
+            getTotal()
+        }
+    }
+
+    private fun getTotal() {
+        viewModelScope.launch {
+            _total.value = cartItemRepository.getCartTotal()
+            LogUtils.printError("total:: " + _total.value.toString())
         }
     }
 

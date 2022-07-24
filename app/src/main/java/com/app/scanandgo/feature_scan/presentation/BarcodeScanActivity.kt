@@ -44,6 +44,8 @@ import com.scandit.datacapture.core.ui.viewfinder.RectangularViewfinder
 import com.scandit.datacapture.core.ui.viewfinder.RectangularViewfinderStyle
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.job
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -80,11 +82,18 @@ class BarcodeScanActivity : CameraPermissionActivity(), BarcodeCaptureListener {
 
                 }
                 is NetworkResult.Success -> {
-                    lifecycleScope.launch(Dispatchers.IO) {
-                        val productDto = networkResult.data as ProductDto
-                        val cartItem = productDto.toCartItem()
-                        viewModel.addCartItem(cartItem)
+                    lifecycleScope.launch(Dispatchers.Main) {
+                        val job = lifecycleScope.launch(Dispatchers.IO) {
+                            val productDto = networkResult.data as ProductDto
+                            val cartItem = productDto.toCartItem()
+                            viewModel.addCartItem(cartItem)
+                        }
+                        job.join()
+                        val intent = Intent(this@BarcodeScanActivity, CartActivity::class.java)
+                        startActivity(intent)
+                        finish()
                     }
+
                 }
             }
         }

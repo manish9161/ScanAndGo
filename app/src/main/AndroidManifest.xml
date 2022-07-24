@@ -19,6 +19,7 @@
         android:theme="@style/Theme.ScanAndGo"
         tools:targetApi="31" >
         <activity android:name=".feature_scan.presentation.BarcodeScanActivity"
+            android:launchMode="singleInstance"
             android:exported="true">
 
             <intent-filter>

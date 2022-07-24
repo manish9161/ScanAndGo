@@ -8,6 +8,7 @@
         android:id="@+id/rvCart"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_margin="8dp"
         app:layout_constraintBottom_toTopOf="@id/btnCheckout"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>

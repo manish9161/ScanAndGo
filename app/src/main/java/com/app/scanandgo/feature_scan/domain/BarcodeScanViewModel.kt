@@ -34,7 +34,7 @@ class BarcodeScanViewModel @Inject constructor(
     fun addCartItem(cartItem: CartItem) {
         viewModelScope.launch {
             productRepository.addCartItem(cartItem)
-            _itemAdded.value = true
+            //_itemAdded.value = true
         }
     }
 }

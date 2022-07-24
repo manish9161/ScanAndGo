@@ -19,4 +19,12 @@ class CartItemRepository @Inject constructor(
         return df.format(total).toDouble()
     }
 
+    suspend fun clearCart() {
+        cartItemDao.deleteCartItems()
+    }
+
+    suspend fun removeCartItem(id: Int) {
+        cartItemDao.deleteCartItem(id)
+    }
+
 }

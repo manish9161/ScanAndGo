@@ -28,4 +28,10 @@ class CheckoutViewModel @Inject constructor(
         }
     }
 
+    fun clearCart() {
+        viewModelScope.launch {
+            cartItemRepository.clearCart()
+        }
+    }
+
 }

@@ -20,6 +20,7 @@ class ProductRepository @Inject constructor(
         val cartItemExists = cartItemDao.getCartItem(cartItem.id)
         if(cartItemExists != null) {
             cartItem.quantity = cartItemExists.quantity + 1
+            cartItem.total = cartItem.price * cartItem.quantity
             cartItemDao.updateCartItem(cartItem)
         } else {
             cartItemDao.insertCartItem(cartItem)

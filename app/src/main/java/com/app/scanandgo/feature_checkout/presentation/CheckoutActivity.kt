@@ -1,12 +1,16 @@
 package com.app.scanandgo.feature_checkout.presentation
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.app.scanandgo.R
 import com.app.scanandgo.databinding.ActivityCheckoutBinding
 import com.app.scanandgo.feature_checkout.domain.CheckoutViewModel
+import com.app.scanandgo.feature_scan.presentation.BarcodeScanActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class CheckoutActivity: AppCompatActivity() {
 
     private lateinit var binding: ActivityCheckoutBinding
@@ -26,7 +30,12 @@ class CheckoutActivity: AppCompatActivity() {
 
     private fun setupButtons() {
         binding.btnMakePayment.setOnClickListener {
+
+            checkoutViewModel.clearCart()
+
             finish()
+            val intent = Intent(this@CheckoutActivity, BarcodeScanActivity::class.java)
+            startActivity(intent)
         }
     }
 

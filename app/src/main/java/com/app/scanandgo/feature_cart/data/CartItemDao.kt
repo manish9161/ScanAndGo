@@ -20,8 +20,8 @@ interface CartItemDao {
     @Update
     suspend fun updateCartItem(cartItem: CartItem)
 
-    @Delete
-    suspend fun deleteCartItem(cartItem: CartItem)
+    @Query("delete from cartitem where id=:id")
+    suspend fun deleteCartItem(id: Int)
 
     @Query("delete from cartitem")
     suspend fun deleteCartItems()

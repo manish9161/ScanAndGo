@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:padding="4dp">
 
 
     <ImageView
@@ -33,10 +34,21 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:textColor="@color/purple_700"
-        android:textSize="24sp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@id/imgCartItem"
         app:layout_constraintStart_toEndOf="@id/imgCartItem"
         tools:text="$ 15" />
+
+    <TextView
+        android:id="@+id/txtQuantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textColor="@color/purple_700"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/imgCartItem"
+        app:layout_constraintStart_toEndOf="@id/txtPrice"
+        tools:text="@string/quantity" />
 
     <TextView
         android:id="@+id/txtRemove"
@@ -44,9 +56,8 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@id/imgCartItem"
         app:layout_constraintEnd_toEndOf="parent"
-        android:textColor="@color/white"
+        android:textColor="@color/red"
         android:padding="4dp"
-        android:background="@drawable/bg_rounded_corner"
         android:text="@string/remove_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

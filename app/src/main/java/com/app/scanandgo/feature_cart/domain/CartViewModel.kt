@@ -29,4 +29,10 @@ class CartViewModel @Inject constructor(
         }
     }
 
+    fun removeItem(id: Int) {
+        viewModelScope.launch {
+            cartItemRepository.removeCartItem(id)
+        }
+    }
+
 }

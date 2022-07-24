@@ -16,13 +16,14 @@ import com.app.scanandgo.feature_scan.presentation.BarcodeScanActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
 class CartActivity: AppCompatActivity() {
 
     private val cartViewModel: CartViewModel by viewModels()
     private lateinit var binding: ActivityCartBinding
-    private var rvAdapter: RvAdapter? = null
+    private var cartAdapter: CartAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,26 +36,26 @@ class CartActivity: AppCompatActivity() {
 
     private fun setupRecyclerView() {
         binding.rvCart.layoutManager = LinearLayoutManager(this)
-        rvAdapter = RvAdapter()
-        binding.rvCart.adapter = rvAdapter
+        cartAdapter = CartAdapter()
+        binding.rvCart.adapter = cartAdapter
         cartViewModel.cartItemList.observe(this) {
             if(it.isNotEmpty()) {
                 binding.txtEmpty.visibility = View.GONE
                 binding.rvCart.visibility = View.VISIBLE
-                rvAdapter?.addData(it)
+                cartAdapter?.addData(it)
             } else {
                 binding.txtEmpty.visibility = View.VISIBLE
                 binding.rvCart.visibility = View.GONE
             }
         }
 
-        rvAdapter?.setIRecyclerviewItemClick(object : RecyclerViewItemClick<CartItem> {
+        cartAdapter?.setIRecyclerviewItemClick(object : RecyclerViewItemClick<CartItem> {
             override fun itemRemove(item: CartItem, position: Int) {
                 lifecycleScope.launch(Dispatchers.IO) {
-//                    cartViewModel.removeItem()
-//                    withContext(Dispatchers.Main) {
-//
-//                    }
+                    cartViewModel.removeItem(item.id)
+                    withContext(Dispatchers.Main) {
+                        cartAdapter?.removeItem(position)
+                    }
                 }
             }
 

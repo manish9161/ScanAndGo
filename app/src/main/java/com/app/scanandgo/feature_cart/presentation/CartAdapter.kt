@@ -9,7 +9,7 @@ import com.app.scanandgo.databinding.ChildCartItemBinding
 import com.app.scanandgo.feature_cart.data.CartItem
 import com.bumptech.glide.Glide
 
-class RvAdapter: RecyclerView.Adapter<RvAdapter.ViewHolder>() {
+class CartAdapter: RecyclerView.Adapter<CartAdapter.ViewHolder>() {
 
 	private var cartItemList: MutableList<CartItem> = mutableListOf()
 	private var iRecyclerViewItemClick: RecyclerViewItemClick<CartItem>? = null
@@ -17,7 +17,6 @@ class RvAdapter: RecyclerView.Adapter<RvAdapter.ViewHolder>() {
 	fun setIRecyclerviewItemClick(recyclerViewItemClick: RecyclerViewItemClick<CartItem>) {
 		iRecyclerViewItemClick = recyclerViewItemClick
 	}
-
 
 	inner class ViewHolder(val binding: ChildCartItemBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -32,7 +31,9 @@ class RvAdapter: RecyclerView.Adapter<RvAdapter.ViewHolder>() {
 			with(cartItemList[position]){
 				binding.txtName.text = this.name
 				val price = String.format(binding.txtPrice.context.getString(R.string.Rs, this.price.toString()))
+				val quantity = String.format(binding.txtPrice.context.getString(R.string.quantity, this.quantity.toString()))
 				binding.txtPrice.text = price
+				binding.txtQuantity.text = quantity
 				Glide.with(binding.root.context).load(this.image).into(binding.imgCartItem)
 
 				binding.txtRemove.setOnClickListener {
@@ -48,7 +49,13 @@ class RvAdapter: RecyclerView.Adapter<RvAdapter.ViewHolder>() {
 	override fun getItemCount(): Int = cartItemList.size
 
 	fun addData(list: List<CartItem>) {
-		cartItemList = list as ArrayList<CartItem>
-		notifyDataSetChanged()
+		cartItemList.clear()
+		cartItemList.addAll(list)
+		notifyItemRangeChanged(0, cartItemList.size - 1)
+	}
+
+	fun removeItem(position: Int) {
+		cartItemList.removeAt(position)
+		notifyItemRemoved(position)
 	}
 }

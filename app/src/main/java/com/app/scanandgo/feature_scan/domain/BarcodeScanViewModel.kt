@@ -9,6 +9,7 @@ import com.app.scanandgo.feature_scan.data.ProductDto
 import com.app.scanandgo.feature_scan.data.ProductRepository
 import com.app.scanandgo.network.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

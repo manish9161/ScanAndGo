@@ -15,4 +15,7 @@
     <string name="add_item_text">Add an item to cart</string>
     <string name="total">Total: $%1$s</string>
     <string name="summary">Summary</string>
+    <string name="exit_message">Are you sure to exit from app?</string>
+    <string name="exit_app">Exit App</string>
+    <string name="exit">Exit</string>
 </resources>

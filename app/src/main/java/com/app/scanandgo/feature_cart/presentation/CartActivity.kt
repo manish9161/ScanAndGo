@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -46,9 +47,13 @@ class CartActivity: AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {
-            finish()
+            onBackPressed()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onBackPressed() {
+        showExitDialog()
     }
 
     private fun getTotal() {
@@ -120,6 +125,24 @@ class CartActivity: AppCompatActivity() {
             val intent = Intent(this, BarcodeScanActivity::class.java)
             startActivity(intent)
             finish()
+        }
+    }
+
+    private fun showExitDialog() {
+        val builder = AlertDialog.Builder(this)
+
+        with(builder)
+        {
+            setTitle(getString(R.string.exit_app))
+            setMessage(getString(R.string.exit_message))
+            setPositiveButton(getString(R.string.exit)) { dialog, _ ->
+                finish()
+                dialog.dismiss()
+            }
+            setNegativeButton(android.R.string.cancel)  { dialog, _ ->
+                dialog.dismiss()
+            }
+            show()
         }
     }
 

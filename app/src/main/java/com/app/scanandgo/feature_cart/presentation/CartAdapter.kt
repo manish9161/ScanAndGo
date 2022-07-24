@@ -51,11 +51,12 @@ class CartAdapter: RecyclerView.Adapter<CartAdapter.ViewHolder>() {
 	fun addData(list: List<CartItem>) {
 		cartItemList.clear()
 		cartItemList.addAll(list)
-		notifyItemRangeChanged(0, cartItemList.size - 1)
+		notifyItemRangeChanged(0, cartItemList.size)
 	}
 
 	fun removeItem(position: Int) {
 		cartItemList.removeAt(position)
 		notifyItemRemoved(position)
+		notifyItemRangeChanged(position, cartItemList.size)
 	}
 }

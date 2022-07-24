@@ -88,7 +88,6 @@ class BarcodeScanActivity : CameraPermissionActivity(), BarcodeCaptureListener {
                 is NetworkResult.Success -> {
 
                     lifecycleScope.launch(Dispatchers.Main) {
-                        ToastUtils.showToast(applicationContext, getString(R.string.item_found))
                         val job = lifecycleScope.launch(Dispatchers.IO) {
                             val productDto = networkResult.data as ProductDto
                             val cartItem = productDto.toCartItem()

@@ -21,7 +21,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.lifecycleScope
 import com.app.scanandgo.R
 import com.app.scanandgo.core.LogUtils
+import com.app.scanandgo.core.ToastUtils
 import com.app.scanandgo.core.observeOnce
+import com.app.scanandgo.databinding.ActivityScannerBinding
 import com.app.scanandgo.feature_cart.presentation.CartActivity
 import com.app.scanandgo.feature_scan.data.ProductDto
 import com.app.scanandgo.feature_scan.domain.BarcodeScanViewModel
@@ -49,6 +51,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class BarcodeScanActivity : CameraPermissionActivity(), BarcodeCaptureListener {
 
+    private lateinit var binding: ActivityScannerBinding
     private val viewModel: BarcodeScanViewModel by viewModels()
 
     companion object {
@@ -64,8 +67,8 @@ class BarcodeScanActivity : CameraPermissionActivity(), BarcodeCaptureListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // Initialize and start the barcode recognition.
+        binding = ActivityScannerBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         initializeAndStartBarcodeScanning()
         observeViewModelData()
     }
@@ -75,13 +78,17 @@ class BarcodeScanActivity : CameraPermissionActivity(), BarcodeCaptureListener {
             when(networkResult) {
                 is NetworkResult.Error -> {
                     dismissScannedCodesDialog()
+                    ToastUtils.showToast(applicationContext, networkResult.message ?: getString(R.string.item_found))
                     LogUtils.printError(message = networkResult.message ?: getString(R.string.error_str))
+                    barcodeCapture?.isEnabled = true
                 }
                 is NetworkResult.Loading -> {
 
                 }
                 is NetworkResult.Success -> {
+
                     lifecycleScope.launch(Dispatchers.Main) {
+                        ToastUtils.showToast(applicationContext, getString(R.string.item_found))
                         val job = lifecycleScope.launch(Dispatchers.IO) {
                             val productDto = networkResult.data as ProductDto
                             val cartItem = productDto.toCartItem()
@@ -89,6 +96,7 @@ class BarcodeScanActivity : CameraPermissionActivity(), BarcodeCaptureListener {
                         }
                         job.join()
                         dismissScannedCodesDialog()
+                        barcodeCapture?.isEnabled = true
                         val intent = Intent(this@BarcodeScanActivity, CartActivity::class.java)
                         startActivity(intent)
                         finish()
@@ -176,7 +184,7 @@ class BarcodeScanActivity : CameraPermissionActivity(), BarcodeCaptureListener {
         // style for the overlay.
         val brush = Brush(Color.TRANSPARENT, Color.WHITE, 3f)
         overlay.brush = brush
-        setContentView(dataCaptureView)
+        binding.frameScanner.addView(dataCaptureView)
     }
 
     override fun onPause() {
@@ -228,16 +236,17 @@ class BarcodeScanActivity : CameraPermissionActivity(), BarcodeCaptureListener {
     }
 
     private fun showResult(result: String) {
+        LogUtils.printDebug(result)
         val randomProductId = (0..20).random()
         viewModel.fetchProduct(randomProductId)
-        val builder = AlertDialog.Builder(this)
+        /*val builder = AlertDialog.Builder(this)
         dialog = builder.setCancelable(false)
             .setTitle(result)
             .setPositiveButton(
                 "OK"
             ) { _, _ -> barcodeCapture?.isEnabled = true }
             .create()
-        dialog!!.show()
+        dialog!!.show()*/
     }
 
     override fun onBarcodeScanned(
@@ -260,7 +269,6 @@ class BarcodeScanActivity : CameraPermissionActivity(), BarcodeCaptureListener {
         // Get the human readable name of the symbology and assemble the result to be shown.
         val symbology: String = SymbologyDescription.create(barcode.symbology).readableName
         val result = "Scanned: " + barcode.data + " (" + symbology + ")"
-        LogUtils.printDebug(result)
         runOnUiThread { showResult(result) }
     }
 

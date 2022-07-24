@@ -2,6 +2,7 @@ package com.app.scanandgo.feature_cart.presentation
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -31,9 +32,23 @@ class CartActivity: AppCompatActivity() {
         binding = ActivityCartBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setupToolbar()
         setupRecyclerView()
         setupButtons()
         getTotal()
+    }
+
+    private fun setupToolbar() {
+        supportActionBar?.title = getString(R.string.cart)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            finish()
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun getTotal() {

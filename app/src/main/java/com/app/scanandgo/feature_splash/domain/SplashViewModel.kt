@@ -1,4 +1,4 @@
-package com.app.scanandgo.feature_checkout.domain
+package com.app.scanandgo.feature_splash.domain
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,32 +10,16 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CheckoutViewModel @Inject constructor(
+class SplashViewModel @Inject constructor(
     private val cartItemRepository: CartItemRepository
 ): ViewModel() {
 
     private val _total: MutableLiveData<Double> = MutableLiveData<Double>()
     val total: LiveData<Double> = _total
 
-    private val _paymentDone: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
-    val paymentDone: LiveData<Boolean> = _paymentDone
-
-    init {
-        getCartTotal()
-    }
-
-
-    private fun getCartTotal() {
+    fun getCartTotal() {
         viewModelScope.launch {
             _total.value = cartItemRepository.getCartTotal()
         }
     }
-
-    fun clearCart() {
-        viewModelScope.launch {
-            cartItemRepository.clearCart()
-            _paymentDone.value = true
-        }
-    }
-
 }

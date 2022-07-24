@@ -44,8 +44,6 @@ import com.scandit.datacapture.core.ui.viewfinder.RectangularViewfinder
 import com.scandit.datacapture.core.ui.viewfinder.RectangularViewfinderStyle
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.job
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint

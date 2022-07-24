@@ -1,9 +1,10 @@
 <resources>
-    <string name="app_name">ScanAndGo</string>
+    <string name="app_name">Scan Go</string>
     <string name="image">Image</string>
     <string name="remove_item">Remove Item</string>
     <string name="Rs">\u20B9 %1$s</string>
-    <string name="checkout">CHECKOUT</string>
+    <string name="cart">Cart</string>
+    <string name="checkout">Checkout</string>
     <string name="no_items_added">Your scan &amp; go cart is empty!</string>
     <string name="suggestion_text">Tap the scan button to start shopping.</string>
     <string name="make_payment">Make Payment</string>
@@ -12,4 +13,5 @@
     <string name="quantity">X %1$s</string>
     <string name="add_item_text">Add an item to cart</string>
     <string name="total">Total: $%1$s</string>
+    <string name="summary">Summary</string>
 </resources>

@@ -54,7 +54,6 @@ class CheckoutActivity: AppCompatActivity() {
     }
 
     private fun orderAgain() {
-        finish()
         val intent = Intent(this@CheckoutActivity, BarcodeScanActivity::class.java)
         startActivity(intent)
     }

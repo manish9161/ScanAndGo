@@ -21,7 +21,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.lifecycleScope
 import com.app.scanandgo.R
 import com.app.scanandgo.core.LogUtils
-import com.app.scanandgo.core.ToastUtils
 import com.app.scanandgo.core.observeOnce
 import com.app.scanandgo.databinding.ActivityScannerBinding
 import com.app.scanandgo.feature_cart.presentation.CartActivity
@@ -83,10 +82,16 @@ class BarcodeScanActivity : CameraPermissionActivity(), BarcodeCaptureListener {
         viewModel.productResult.observe(this@BarcodeScanActivity) { networkResult ->
             when(networkResult) {
                 is NetworkResult.Error -> {
-                    dismissScannedCodesDialog()
-                    ToastUtils.showToast(applicationContext, networkResult.message ?: getString(R.string.item_found))
                     LogUtils.printError(message = networkResult.message ?: getString(R.string.error_str))
-                    barcodeCapture?.isEnabled = true
+                    val builder = AlertDialog.Builder(this)
+                    dialog = builder.setCancelable(false)
+                        .setTitle("Item not found")
+                        .setMessage(networkResult.message ?: getString(R.string.item_found))
+                        .setPositiveButton(
+                            "OK"
+                        ) { _, _ -> barcodeCapture?.isEnabled = true }
+                        .create()
+                    dialog!!.show()
                 }
                 is NetworkResult.Loading -> {
 
@@ -100,11 +105,8 @@ class BarcodeScanActivity : CameraPermissionActivity(), BarcodeCaptureListener {
                             viewModel.addCartItem(cartItem)
                         }
                         job.join()
-                        dismissScannedCodesDialog()
-                        barcodeCapture?.isEnabled = true
                         val intent = Intent(this@BarcodeScanActivity, CartActivity::class.java)
                         startActivity(intent)
-                        finish()
                     }
 
                 }
@@ -115,7 +117,6 @@ class BarcodeScanActivity : CameraPermissionActivity(), BarcodeCaptureListener {
             if(itemAdded) {
                 val intent = Intent(this@BarcodeScanActivity, CartActivity::class.java)
                 startActivity(intent)
-                finish()
             }
         }
     }
@@ -244,14 +245,6 @@ class BarcodeScanActivity : CameraPermissionActivity(), BarcodeCaptureListener {
         LogUtils.printDebug(result)
         val randomProductId = (0..20).random()
         viewModel.fetchProduct(randomProductId)
-        /*val builder = AlertDialog.Builder(this)
-        dialog = builder.setCancelable(false)
-            .setTitle(result)
-            .setPositiveButton(
-                "OK"
-            ) { _, _ -> barcodeCapture?.isEnabled = true }
-            .create()
-        dialog!!.show()*/
     }
 
     override fun onBarcodeScanned(

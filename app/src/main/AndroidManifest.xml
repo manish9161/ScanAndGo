@@ -19,8 +19,8 @@
         android:theme="@style/Theme.ScanAndGo"
         tools:targetApi="31" >
         <activity android:name=".feature_splash.presentation.SplashActivity"
-            android:launchMode="singleTask"
             android:theme="@style/AppTheme.Splash"
+
             android:exported="true">
 
             <intent-filter>

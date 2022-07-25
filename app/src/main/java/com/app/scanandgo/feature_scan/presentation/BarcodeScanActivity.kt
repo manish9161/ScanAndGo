@@ -71,6 +71,12 @@ class BarcodeScanActivity : CameraPermissionActivity(), BarcodeCaptureListener {
         setContentView(binding.root)
         initializeAndStartBarcodeScanning()
         observeViewModelData()
+
+        setupToolbar()
+    }
+
+    private fun setupToolbar() {
+        supportActionBar?.title = getString(R.string.scan_item)
     }
 
     private fun observeViewModelData() {

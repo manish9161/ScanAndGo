@@ -3,6 +3,7 @@
     <string name="image">Image</string>
     <string name="remove_item">Remove Item</string>
     <string name="Rs">\u20B9 %1$s</string>
+    <string name="scan_item">Scan Item</string>
     <string name="cart">Cart</string>
     <string name="checkout">Checkout</string>
     <string name="no_items_added">Your scan &amp; go cart is empty!</string>
